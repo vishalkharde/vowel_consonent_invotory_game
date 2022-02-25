@@ -1,0 +1,52 @@
+import numpy as np  # importing numpy library for array operation
+
+a=input()          # getting input from user
+
+# Below I predefined the vowel and consonent
+consonent=['B','C','D','F','G','H','J','K','L','M','N','P','Q','R','S','T','U','W','X','Y','Z']
+vowel=['A','E','I','O','U']
+
+list=[]   # converting input data to list for easy 
+for i in a:
+    list.append(i)
+
+banta=[]   # getting empty list of santa and banta
+santa=[]
+
+for i in list:
+    if i in vowel:                         # checking the given character is present in vowel or not?
+        for j in range(list.index(i),len(list)+1):
+            banta.append(a[list.index(i):j])
+        list[list.index(i)]='1'            # To avoid the character repeatition in list, I replace it by 1 
+#Checking for consonent
+for i in list:
+    if i in consonent:
+        for j in range(0,len(list)+1):
+            santa.append(a[list.index(i):j]) 
+            
+for i in range (0,banta.count('')):
+    banta.remove('')  
+for i in range (0,santa.count('')):
+    santa.remove('')
+    
+banta.sort()    #Before segmenting the list, Sorted for apply basic fundament
+santa.sort()
+    
+def dublicates(x):      # Function created for avoiding dublicates in list
+    dublicates=[]
+    for i in range (0,len(x)-1):
+        if x[i]!=x[i+1]:
+            dublicates.append(x[i])  
+    return dublicates
+def getting_score(x):    # we counting and finnaly getting sum in terms of score
+    number=[]
+    for i in dublicates(x):
+            number.append(x.count(i))
+    score=np.sum(number) 
+    return score   
+def output(x,y):         # our final output ,for printing data with label 
+    if getting_score(x)>getting_score(y):
+        print('Santa',  getting_score(x))
+    else: print('Banta', getting_score(y))
+    return output
+output(santa,banta)
